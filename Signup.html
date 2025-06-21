@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unique RentaCar - Login/Signup</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            min-height: 600px;
+            background: #fff;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border-radius: 20px;
+        }
+        
+        .user {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+        
+        .imgBx {
+            position: relative;
+            width: 50%;
+            height: 100%;
+            background: #ff0000;
+            transition: 0.5s;
+            overflow: hidden;
+        }
+        
+        .imgBx img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .formBx {
+            position: relative;
+            width: 50%;
+            height: 100%;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            transition: 0.5s;
+        }
+        
+        .formBx form {
+            width: 100%;
+        }
+        
+        .formBx form h2 {
+            font-size: 24px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .formBx form input {
+            position: relative;
+            width: 100%;
+            padding: 10px;
+            background: #f5f5f5;
+            color: #333;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            margin: 8px 0;
+            font-size: 14px;
+            letter-spacing: 1px;
+            font-weight: 300;
+            border-radius: 5px;
+        }
+        
+        .formBx form input[type="submit"] {
+            max-width: 150px;
+            background: #ff0000;
+            color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: 0.5s;
+            margin-top: 20px;
+        }
+        
+        .formBx form input[type="submit"]:hover {
+            background: #d40000;
+        }
+        
+        .formBx form .signup {
+            position: relative;
+            margin-top: 20px;
+            font-size: 12px;
+            letter-spacing: 1px;
+            color: #555;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+        
+        .formBx form .signup a {
+            font-weight: 600;
+            text-decoration: none;
+            color: #ff0000;
+        }
+        
+        .formBx form .signup a:hover {
+            text-decoration: underline;
+        }
+        
+        .toggleBtn {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            background: #ff0000;
+            transform: translate(-50%, 50%);
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: 0.5s;
+        }
+        
+        .toggleBtn:hover {
+            background: #d40000;
+        }
+        
+        .toggleBtn::before {
+            content: 'Login';
+            position: absolute;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 0.5s;
+        }
+        
+        .toggleBtn.active::before {
+            content: 'Sign Up';
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .toggleBtn.active {
+            transform: translate(-50%, 50%) rotate(180deg);
+        }
+        
+        .signupForm {
+            opacity: 1;
+            visibility: visible;
+            transition: 0.5s;
+        }
+        
+        .loginForm {
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.5s;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+        }
+        
+        .container.active .loginForm {
+            opacity: 1;
+            visibility: visible;
+            transition: 0.5s;
+        }
+        
+        .container.active .signupForm {
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.5s;
+        }
+        
+        .container.active .imgBx {
+            background: #ffcccc;
+        }
+        
+        .container:not(.active) .formBx {
+            background: #ffcccc;
+        }
+        
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #ff0000;
+            z-index: 10;
+        }
+        
+        .logo span {
+            color: #333;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                max-width: 400px;
+            }
+            
+            .imgBx {
+                display: none;
+            }
+            
+            .formBx {
+                width: 100%;
+            }
+            
+            .toggleBtn {
+                transform: translate(-50%, 50%) scale(0.8);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">Unique <span>RentaCar</span></div>
+        <div class="user">
+            <div class="imgBx">
+                <img src="img/signup picture.avif" alt="Car">
+            </div>
+            <div class="formBx">
+                <form class="signupForm">
+                    <h2>Create an Account</h2>
+                    <input type="text" name="name" placeholder="Full Name" required>
+                    <input type="email" name="email" placeholder="Email Address" required>
+                    <input type="password" name="password" placeholder="Create Password" required>
+                    <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+                    <input type="submit" value="Sign Up">
+                    <p class="signup">Already have an account? <a href="#" id="loginLink">Sign in</a></p>
+                </form>
+                
+                <form class="loginForm">
+                    <h2>Sign In</h2>
+                    <input type="email" name="email" placeholder="Email Address" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <input type="submit" value="Login">
+                    <p class="signup">Don't have an account? <a href="#" id="signupLink">Sign up</a></p>
+                </form>
+            </div>
+        </div>
+        <div class="toggleBtn" id="toggleBtn"></div>
+    </div>
+
+    <script>
+        const container = document.querySelector('.container');
+        const toggleBtn = document.getElementById('toggleBtn');
+        const loginLink = document.getElementById('loginLink');
+        const signupLink = document.getElementById('signupLink');
+        
+        toggleBtn.addEventListener('click', () => {
+            container.classList.toggle('active');
+            toggleBtn.classList.toggle('active');
+        });
+        
+        loginLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            container.classList.add('active');
+            toggleBtn.classList.add('active');
+        });
+        
+        signupLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            container.classList.remove('active');
+            toggleBtn.classList.remove('active');
+        });
+    </script>
+</body>
+</html>
